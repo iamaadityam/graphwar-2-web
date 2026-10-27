@@ -1,0 +1,26 @@
+node_modules/
+dist/
+data/
+coverage/
+.vite/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+credentials.json
+secrets.json
+secret.json
+*.secret
+*.log
+
+# Editor / OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
