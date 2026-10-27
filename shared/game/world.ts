@@ -14,7 +14,7 @@ export function terrainHeightAt(x: number): number {
   );
 }
 
-export const UNIT_COLORS = ["#ff8a3d", "#39d9ff", "#8bff8f", "#ff5e93"] as const;
+export const UNIT_COLORS = ["#ffb000", "#5ce1ff", "#65ff8f", "#ff6b9d"] as const;
 
 export function spawnPositions(count: number): Vec2[] {
   const xs =

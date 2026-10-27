@@ -18,7 +18,7 @@ const REASON_LABEL: Record<string, string> = {
 
 export function ResultsOverlay({ match, accountId, busy, onRematch, onLeave }: ResultsOverlayProps) {
   const winner = match.players.find((player) => player.id === match.winnerId);
-  const winnerColor = winner ? UNIT_COLORS[winner.colorIndex % UNIT_COLORS.length] : "#39d9ff";
+  const winnerColor = winner ? UNIT_COLORS[winner.colorIndex % UNIT_COLORS.length] : "#7dffa6";
   const viewerWon = match.winnerId === accountId;
   const humanConnected = match.players.filter((player) => player.kind === "human" && player.connected).length;
   const canRematch = humanConnected >= 2 || (humanConnected >= 1 && match.players.some((p) => p.kind === "bot"));

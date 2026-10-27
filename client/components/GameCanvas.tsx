@@ -62,14 +62,14 @@ function trailTo(
 
 function drawGrid(ctx: CanvasRenderingContext2D): void {
   const bg = ctx.createLinearGradient(0, 0, 0, HEIGHT);
-  bg.addColorStop(0, "#06101b");
-  bg.addColorStop(0.65, "#081722");
-  bg.addColorStop(1, "#040b12");
+  bg.addColorStop(0, "#020a05");
+  bg.addColorStop(0.65, "#041108");
+  bg.addColorStop(1, "#010603");
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
   const glow = ctx.createRadialGradient(WIDTH * 0.55, HEIGHT * 0.4, 40, WIDTH * 0.55, HEIGHT * 0.45, 620);
-  glow.addColorStop(0, "rgba(29, 106, 129, 0.16)");
+  glow.addColorStop(0, "rgba(55, 210, 104, 0.13)");
   glow.addColorStop(1, "rgba(0, 0, 0, 0)");
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
@@ -78,7 +78,7 @@ function drawGrid(ctx: CanvasRenderingContext2D): void {
   for (let x = Math.ceil(WORLD.minX / 5) * 5; x <= WORLD.maxX; x += 5) {
     const major = x % 10 === 0;
     ctx.beginPath();
-    ctx.strokeStyle = major ? "rgba(82, 182, 210, 0.15)" : "rgba(82, 182, 210, 0.055)";
+    ctx.strokeStyle = major ? "rgba(91, 255, 139, 0.14)" : "rgba(91, 255, 139, 0.045)";
     ctx.lineWidth = major ? 1 : 0.7;
     ctx.moveTo(sx(x), 0);
     ctx.lineTo(sx(x), HEIGHT);
@@ -87,7 +87,7 @@ function drawGrid(ctx: CanvasRenderingContext2D): void {
   for (let y = Math.ceil(WORLD.minY / 5) * 5; y <= WORLD.maxY; y += 5) {
     const major = y % 10 === 0;
     ctx.beginPath();
-    ctx.strokeStyle = major ? "rgba(82, 182, 210, 0.15)" : "rgba(82, 182, 210, 0.055)";
+    ctx.strokeStyle = major ? "rgba(91, 255, 139, 0.14)" : "rgba(91, 255, 139, 0.045)";
     ctx.lineWidth = major ? 1 : 0.7;
     ctx.moveTo(0, sy(y));
     ctx.lineTo(WIDTH, sy(y));
@@ -106,9 +106,9 @@ function drawTerrain(ctx: CanvasRenderingContext2D): void {
   ctx.lineTo(WIDTH, HEIGHT);
   ctx.closePath();
   const fill = ctx.createLinearGradient(0, sy(12), 0, HEIGHT);
-  fill.addColorStop(0, "rgba(21, 88, 83, 0.58)");
-  fill.addColorStop(0.4, "rgba(13, 52, 58, 0.86)");
-  fill.addColorStop(1, "rgba(3, 13, 20, 0.98)");
+  fill.addColorStop(0, "rgba(17, 73, 38, 0.72)");
+  fill.addColorStop(0.4, "rgba(7, 42, 20, 0.9)");
+  fill.addColorStop(1, "rgba(1, 9, 4, 0.99)");
   ctx.fillStyle = fill;
   ctx.fill();
 
@@ -119,8 +119,8 @@ function drawTerrain(ctx: CanvasRenderingContext2D): void {
     if (x === WORLD.minX) ctx.moveTo(px, py);
     else ctx.lineTo(px, py);
   }
-  ctx.strokeStyle = "#37d3a3";
-  ctx.shadowColor = "rgba(55,211,163,.5)";
+  ctx.strokeStyle = "#4dff88";
+  ctx.shadowColor = "rgba(77,255,136,.55)";
   ctx.shadowBlur = 12;
   ctx.lineWidth = 2.2;
   ctx.stroke();
@@ -129,7 +129,7 @@ function drawTerrain(ctx: CanvasRenderingContext2D): void {
   // Fine contour texture.
   ctx.save();
   ctx.globalAlpha = 0.13;
-  ctx.strokeStyle = "#7ef7ce";
+  ctx.strokeStyle = "#b9ffcb";
   ctx.lineWidth = 1;
   for (let offset = 3; offset <= 12; offset += 3.5) {
     ctx.beginPath();
@@ -145,13 +145,13 @@ function drawTerrain(ctx: CanvasRenderingContext2D): void {
 
 function drawAxes(ctx: CanvasRenderingContext2D): void {
   ctx.save();
-  ctx.font = "600 13px 'Cascadia Code', 'SFMono-Regular', Consolas, monospace";
-  ctx.fillStyle = "rgba(139, 211, 228, 0.78)";
+  ctx.font = "600 13px 'Cascadia Mono', 'Cascadia Code', Consolas, monospace";
+  ctx.fillStyle = "rgba(164, 255, 186, 0.72)";
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
   for (let x = -60; x <= 60; x += 20) {
     const px = sx(x);
-    ctx.strokeStyle = "rgba(137, 208, 225, 0.3)";
+    ctx.strokeStyle = "rgba(122, 255, 157, 0.3)";
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(px, HEIGHT - 27);
@@ -163,18 +163,18 @@ function drawAxes(ctx: CanvasRenderingContext2D): void {
   ctx.textBaseline = "middle";
   for (let y = -10; y <= 50; y += 10) {
     const py = sy(y);
-    ctx.strokeStyle = "rgba(137, 208, 225, 0.3)";
+    ctx.strokeStyle = "rgba(122, 255, 157, 0.3)";
     ctx.beginPath();
     ctx.moveTo(4, py);
     ctx.lineTo(12, py);
     ctx.stroke();
-    ctx.fillStyle = "rgba(139, 211, 228, 0.7)";
+    ctx.fillStyle = "rgba(164, 255, 186, 0.66)";
     ctx.fillText(String(y), 18, py);
   }
 
   // Axis reference lines sit above the terrain as a graph overlay.
   ctx.setLineDash([6, 8]);
-  ctx.strokeStyle = "rgba(116, 201, 222, 0.34)";
+  ctx.strokeStyle = "rgba(122, 255, 157, 0.34)";
   ctx.lineWidth = 1.2;
   ctx.beginPath();
   ctx.moveTo(0, sy(0));
@@ -186,9 +186,9 @@ function drawAxes(ctx: CanvasRenderingContext2D): void {
   ctx.stroke();
   ctx.setLineDash([]);
 
-  ctx.font = "700 12px 'Cascadia Code', Consolas, monospace";
+  ctx.font = "700 12px 'Cascadia Mono', 'Cascadia Code', Consolas, monospace";
   ctx.textAlign = "right";
-  ctx.fillStyle = "rgba(116, 201, 222, 0.6)";
+  ctx.fillStyle = "rgba(122, 255, 157, 0.6)";
   ctx.fillText("x", WIDTH - 16, sy(0) - 12);
   ctx.textAlign = "left";
   ctx.fillText("y", sx(0) + 12, 16);
@@ -197,16 +197,16 @@ function drawAxes(ctx: CanvasRenderingContext2D): void {
 
 function drawLegend(ctx: CanvasRenderingContext2D, expression: string | null, animating: boolean): void {
   ctx.save();
-  ctx.font = "600 12px 'Cascadia Code', Consolas, monospace";
+  ctx.font = "600 12px 'Cascadia Mono', 'Cascadia Code', Consolas, monospace";
   ctx.textBaseline = "middle";
-  ctx.fillStyle = "rgba(6, 16, 27, 0.78)";
-  ctx.strokeStyle = "rgba(87, 169, 193, 0.22)";
+  ctx.fillStyle = "rgba(1, 8, 4, 0.86)";
+  ctx.strokeStyle = "rgba(91, 255, 139, 0.28)";
   ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.roundRect(22, 18, 236, 58, 8);
+  ctx.rect(22, 18, 236, 58);
   ctx.fill();
   ctx.stroke();
-  ctx.strokeStyle = "#39d9ff";
+  ctx.strokeStyle = "#7dffa6";
   ctx.setLineDash([6, 5]);
   ctx.lineWidth = 2;
   ctx.beginPath();
@@ -214,28 +214,28 @@ function drawLegend(ctx: CanvasRenderingContext2D, expression: string | null, an
   ctx.lineTo(70, 36);
   ctx.stroke();
   ctx.setLineDash([]);
-  ctx.fillStyle = "rgba(190, 234, 243, 0.82)";
+  ctx.fillStyle = "rgba(201, 255, 215, 0.82)";
   ctx.fillText("PREDICTED", 80, 37);
-  ctx.strokeStyle = "#ff8a3d";
+  ctx.strokeStyle = "#ffb000";
   ctx.lineWidth = 2.6;
   ctx.beginPath();
   ctx.moveTo(36, 58);
   ctx.lineTo(70, 58);
   ctx.stroke();
-  ctx.fillStyle = "rgba(190, 234, 243, 0.82)";
+  ctx.fillStyle = "rgba(201, 255, 215, 0.82)";
   ctx.fillText(animating ? "FIRING…" : "LAST SHOT", 80, 59);
 
   if (expression) {
-    ctx.font = "600 12px 'Cascadia Code', Consolas, monospace";
+    ctx.font = "600 12px 'Cascadia Mono', 'Cascadia Code', Consolas, monospace";
     const label = `f(x) = ${expression}`;
     const width = Math.min(480, ctx.measureText(label).width + 30);
-    ctx.fillStyle = "rgba(6, 16, 27, 0.8)";
-    ctx.strokeStyle = "rgba(255,138,61,.35)";
+    ctx.fillStyle = "rgba(1, 8, 4, 0.9)";
+    ctx.strokeStyle = "rgba(255,176,0,.4)";
     ctx.beginPath();
-    ctx.roundRect(WIDTH - width - 22, 18, width, 34, 8);
+    ctx.rect(WIDTH - width - 22, 18, width, 34);
     ctx.fill();
     ctx.stroke();
-    ctx.fillStyle = "#ffae72";
+    ctx.fillStyle = "#ffc04d";
     ctx.textAlign = "left";
     ctx.fillText(label, WIDTH - width - 7, 35, width - 24);
   }
@@ -262,7 +262,7 @@ function drawUnit(
     const pulse = (Math.sin(now / 260) + 1) / 2;
     ctx.beginPath();
     ctx.arc(px, py, radius + 8 + pulse * 6, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(255,255,255,${0.18 + pulse * 0.28})`;
+    ctx.strokeStyle = `rgba(180,255,198,${0.18 + pulse * 0.28})`;
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.beginPath();
@@ -286,17 +286,17 @@ function drawUnit(
 
   ctx.beginPath();
   ctx.arc(px, py, radius - 6, 0, Math.PI * 2);
-  ctx.fillStyle = "#07131f";
+  ctx.fillStyle = "#031008";
   ctx.fill();
 
   ctx.fillStyle = color;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.font = "800 18px 'Segoe UI', system-ui, sans-serif";
+  ctx.font = "800 18px 'Cascadia Mono', 'Cascadia Code', Consolas, monospace";
   ctx.fillText(player.name.slice(0, 1).toUpperCase(), px, py + 1);
 
   if (player.eliminated) {
-    ctx.strokeStyle = "#ff5e73";
+    ctx.strokeStyle = "#ff5b65";
     ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.moveTo(px - 11, py - 11);
@@ -310,28 +310,28 @@ function drawUnit(
   const barWidth = 66;
   const barX = px - barWidth / 2;
   const barY = py + radius + 9;
-  ctx.fillStyle = "rgba(2, 8, 14, 0.9)";
+  ctx.fillStyle = "rgba(1, 6, 3, 0.94)";
   ctx.beginPath();
-  ctx.roundRect(barX, barY, barWidth, 7, 3);
+  ctx.rect(barX, barY, barWidth, 7);
   ctx.fill();
   const health = Math.max(0, player.health / player.maxHealth);
   if (health > 0) {
-    ctx.fillStyle = health > 0.6 ? "#58df9d" : health > 0.3 ? "#ffd166" : "#ff5e73";
+    ctx.fillStyle = health > 0.6 ? "#4dff88" : health > 0.3 ? "#ffd166" : "#ff5b65";
     ctx.beginPath();
-    ctx.roundRect(barX, barY, barWidth * health, 7, 3);
+    ctx.rect(barX, barY, barWidth * health, 7);
     ctx.fill();
   }
 
-  ctx.font = "700 11px 'Cascadia Code', Consolas, monospace";
+  ctx.font = "700 11px 'Cascadia Mono', 'Cascadia Code', Consolas, monospace";
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
-  ctx.fillStyle = player.eliminated ? "rgba(255,255,255,.35)" : "rgba(224, 243, 247, 0.9)";
+  ctx.fillStyle = player.eliminated ? "rgba(201,255,215,.3)" : "rgba(201, 255, 215, 0.9)";
   const tag = `${player.name.toUpperCase()}${player.id === viewerId ? " / YOU" : ""}`;
   ctx.fillText(tag, px, barY + 12, 176);
 
   if (!player.connected) {
-    ctx.font = "700 10px 'Cascadia Code', Consolas, monospace";
-    ctx.fillStyle = "#ff5e73";
+    ctx.font = "700 10px 'Cascadia Mono', 'Cascadia Code', Consolas, monospace";
+    ctx.fillStyle = "#ff5b65";
     ctx.fillText("OFFLINE", px, barY + 27);
   }
   ctx.restore();
@@ -344,9 +344,9 @@ function drawPredicted(ctx: CanvasRenderingContext2D, preview: PreviewResult | n
   pathFromPoints(ctx, preview.points);
   ctx.setLineDash([9, 8]);
   ctx.lineDashOffset = -performance.now() / 90;
-  ctx.strokeStyle = "rgba(57, 217, 255, 0.85)";
+  ctx.strokeStyle = "rgba(125, 255, 166, 0.9)";
   ctx.lineWidth = 2.4;
-  ctx.shadowColor = "rgba(57,217,255,.7)";
+  ctx.shadowColor = "rgba(77,255,136,.7)";
   ctx.shadowBlur = 10;
   ctx.stroke();
   ctx.setLineDash([]);
@@ -356,17 +356,17 @@ function drawPredicted(ctx: CanvasRenderingContext2D, preview: PreviewResult | n
   const start = preview.points[0];
   ctx.beginPath();
   ctx.arc(sx(start.x), sy(start.y), 5, 0, Math.PI * 2);
-  ctx.fillStyle = "#39d9ff";
+  ctx.fillStyle = "#7dffa6";
   ctx.fill();
 
   if (preview.hitPlayerId) {
     ctx.beginPath();
     ctx.arc(sx(end.x), sy(end.y), 14, 0, Math.PI * 2);
-    ctx.strokeStyle = "rgba(255, 94, 115, 0.9)";
+    ctx.strokeStyle = "rgba(255, 91, 101, 0.9)";
     ctx.lineWidth = 2;
     ctx.stroke();
   } else {
-    ctx.strokeStyle = "rgba(57,217,255,.7)";
+    ctx.strokeStyle = "rgba(125,255,166,.7)";
     ctx.lineWidth = 1.6;
     ctx.beginPath();
     ctx.moveTo(sx(end.x) - 6, sy(end.y) - 6);
@@ -383,12 +383,12 @@ function drawAnimation(ctx: CanvasRenderingContext2D, anim: AnimState | null, no
   const { shot, progress, elapsed, duration } = anim;
   const points = shot.points;
   if (points.length < 2) return;
-  const color = shot.outcome === "hit" ? "#ff8a3d" : "#ffb15e";
+  const color = shot.outcome === "hit" ? "#ffb000" : "#ffd36a";
 
   ctx.save();
   ctx.beginPath();
   pathFromPoints(ctx, points);
-  ctx.strokeStyle = "rgba(255, 138, 61, 0.18)";
+  ctx.strokeStyle = "rgba(255, 176, 0, 0.18)";
   ctx.lineWidth = 1.4;
   ctx.setLineDash([2, 8]);
   ctx.stroke();
@@ -398,7 +398,7 @@ function drawAnimation(ctx: CanvasRenderingContext2D, anim: AnimState | null, no
   const head = trailTo(ctx, points, progress);
   ctx.strokeStyle = color;
   ctx.lineWidth = 3.1;
-  ctx.shadowColor = "rgba(255, 138, 61, 0.85)";
+  ctx.shadowColor = "rgba(255, 176, 0, 0.85)";
   ctx.shadowBlur = 13;
   ctx.stroke();
   ctx.shadowBlur = 0;
@@ -409,15 +409,15 @@ function drawAnimation(ctx: CanvasRenderingContext2D, anim: AnimState | null, no
     if (progress < 1) {
       const glow = ctx.createRadialGradient(hx, hy, 0, hx, hy, 20);
       glow.addColorStop(0, "rgba(255,255,255,1)");
-      glow.addColorStop(0.25, "rgba(255, 174, 96, 0.95)");
-      glow.addColorStop(1, "rgba(255, 138, 61, 0)");
+      glow.addColorStop(0.25, "rgba(255, 211, 106, 0.95)");
+      glow.addColorStop(1, "rgba(255, 176, 0, 0)");
       ctx.fillStyle = glow;
       ctx.beginPath();
       ctx.arc(hx, hy, 20, 0, Math.PI * 2);
       ctx.fill();
       ctx.beginPath();
       ctx.arc(hx, hy, 4.5, 0, Math.PI * 2);
-      ctx.fillStyle = "#fff4e8";
+      ctx.fillStyle = "#fff6d8";
       ctx.fill();
     }
   }
@@ -433,16 +433,16 @@ function drawAnimation(ctx: CanvasRenderingContext2D, anim: AnimState | null, no
     ctx.arc(ex, ey, radius, 0, Math.PI * 2);
     ctx.strokeStyle =
       shot.outcome === "hit"
-        ? `rgba(255, 94, 115, ${1 - impactT})`
-        : `rgba(255, 177, 94, ${0.8 - impactT * 0.8})`;
+        ? `rgba(255, 91, 101, ${1 - impactT})`
+        : `rgba(255, 211, 106, ${0.8 - impactT * 0.8})`;
     ctx.lineWidth = 3;
     ctx.stroke();
     ctx.beginPath();
     ctx.arc(ex, ey, 6 + impactT * 16, 0, Math.PI * 2);
     ctx.fillStyle =
       shot.outcome === "hit"
-        ? `rgba(255, 94, 115, ${0.45 * (1 - impactT)})`
-        : `rgba(255, 177, 94, ${0.35 * (1 - impactT)})`;
+        ? `rgba(255, 91, 101, ${0.45 * (1 - impactT)})`
+        : `rgba(255, 211, 106, ${0.35 * (1 - impactT)})`;
     ctx.fill();
   }
   ctx.restore();

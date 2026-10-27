@@ -54,7 +54,7 @@ export function LobbyScreen({
           <span className="brand-mark" aria-hidden="true">
             <svg viewBox="0 0 48 48">
               <path d="M5 38 Q16 5 24 25 T43 12" fill="none" stroke="currentColor" strokeWidth="3" />
-              <circle cx="43" cy="12" r="4" fill="#ff8a3d" />
+              <circle cx="43" cy="12" r="4" fill="#ffb000" />
             </svg>
           </span>
           <span>

@@ -2,9 +2,11 @@
 
 A complete, browser-based multiplayer artillery game inspired by Graphwar. Players do not choose an angle or power: they write a mathematical function, and the server plots it as a projectile path across a Cartesian battlefield.
 
-The project is an original implementation with no Graphwar assets or code. It includes a React client, an authoritative Node.js/Socket.IO server, a safe function parser, deterministic simulation, SQLite persistence, public/private lobbies, bots, reconnection, tests, and a production build.
+The project is an original implementation with no Graphwar assets or code. It includes a React client, an authoritative Node.js/Socket.IO server, a safe function parser, deterministic simulation, SQLite persistence, public/private lobbies, bots, reconnection, tests, and a production build. The interface is presented as a phosphor CRT computer terminal.
 
-![Predicted trajectory in the game canvas](docs/trajectory-preview.jpg)
+| Main terminal | Predicted trajectory |
+| --- | --- |
+| ![Retro CRT menu](docs/retro-menu-desktop.jpg) | ![Predicted trajectory in the retro game canvas](docs/trajectory-preview.jpg) |
 
 ## Features
 
@@ -16,6 +18,7 @@ The project is an original implementation with no Graphwar assets or code. It in
 - **Reconnect and persistence** — opaque hashed-token accounts, saved sessions, reconnection to active matches, SQLite match snapshots, restart recovery, and exactly-once win/loss accounting.
 - **Turn safety** — 30-second clocks, automatic harmless shots on timeout or prolonged disconnect, turn skipping for disconnected players, and abandonment of matches with no connected humans.
 - **Responsive presentation** — React game UI, accessible controls, a 1280×640 canvas battlefield, terrain, grid, health bars, predicted paths, animated shots, ballistic history, and a results overlay.
+- **CRT terminal theme** — phosphor-green and amber palette, scanlines, hard-edged window chrome, monospaced typography, and a matching battlefield palette.
 
 ## Quick start
 
@@ -35,7 +38,7 @@ npm run build
 npm start
 ```
 
-Open <http://localhost:3001>. `npm start` serves the built `dist/` directory when it exists.
+Open <http://localhost:3001>. `npm start` serves the built `dist/` directory when it exists. For local production, Socket.IO accepts the configured `PORT` automatically; use `CLIENT_ORIGIN` when serving through a different public hostname or reverse proxy.
 
 ### Configuration
 
@@ -45,7 +48,7 @@ Copy `.env.example` to `.env` if you need overrides. The server loads `.env` at 
 | --- | --- | --- |
 | `PORT` | `3001` | HTTP and Socket.IO port |
 | `DB_PATH` | `./data/graphwar.db` | SQLite database path |
-| `CLIENT_ORIGIN` | empty | Extra comma-separated browser origins allowed by Socket.IO CORS |
+| `CLIENT_ORIGIN` | auto | Extra comma-separated browser origins allowed by Socket.IO CORS; local Vite and the configured `PORT` are included automatically |
 | `VITE_SERVER_URL` | same origin | Optional client Socket.IO URL, read at build time by Vite |
 | `NODE_ENV` | unset | Used for startup logging; static hosting is detected from `dist/` |
 
@@ -127,7 +130,8 @@ This is a parabola with zeros at the shooter and target and a 30-unit peak. To a
 client/                   React 19 + Vite browser client
   App.tsx                 session, reconnect, screen routing, Socket.IO actions
   components/             menu, lobby, game screen, math editor, canvas, results
-  styles.css              responsive layout and visual design
+  styles.css              responsive layout and structural design
+  retro.css               CRT terminal theme, scanlines, phosphor palette
 shared/                   pure TypeScript used by both sides
   types.ts                wire types, world/game constants
   math/expression.ts      bounded tokenizer, parser, AST evaluator
@@ -204,9 +208,9 @@ Latest verification:
 
 - `npm test` — **44 passed** across 6 files.
 - `npm run typecheck` — passed.
-- `npm run build` — passed (client bundle approximately 314 kB JS / 32 kB CSS before gzip).
+- `npm run build` — passed (client bundle approximately 314 kB JS / 50 kB CSS before gzip).
 - Manual browser test — two independent origins (`http://localhost:3001` and `http://127.0.0.1:3001`, which have separate `localStorage` sessions) joined the same private lobby, synchronized turn state, completed a full match through elimination, displayed the same winner on both clients, and returned both clients to the lobby via rematch.
-- Manual production test — `npm start` served the built client on port 3001; the canvas preview, trajectory prediction, shot animation, health updates, ballistic log, timeout auto-shot, and solo bot turn were exercised.
+- Manual production test — `npm start` served the built client; the CRT menu, 1440 px desktop layout, 390 px mobile layout, canvas preview, trajectory prediction, shot animation, health updates, ballistic log, timeout auto-shot, and solo bot turn were exercised.
 
 ## Known limitations
 

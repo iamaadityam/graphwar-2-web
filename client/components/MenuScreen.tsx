@@ -54,12 +54,12 @@ export function MenuScreen({
           <span className="brand-mark" aria-hidden="true">
             <svg viewBox="0 0 48 48">
               <path d="M5 38 Q16 5 24 25 T43 12" fill="none" stroke="currentColor" strokeWidth="3" />
-              <circle cx="43" cy="12" r="4" fill="#ff8a3d" />
+              <circle cx="43" cy="12" r="4" fill="#ffb000" />
             </svg>
           </span>
           <span>
             <strong>GRAPH</strong>WAR
-            <em>WEB / FUNCTION ARTILLERY</em>
+            <em>CRT / FUNCTION ARTILLERY</em>
           </span>
         </div>
         <div className="header-right">
@@ -108,8 +108,8 @@ export function MenuScreen({
             </div>
           </div>
           <div className="hero-legend">
-            <span><i className="legend-line predicted" /> cyan dashed = preview</span>
-            <span><i className="legend-line fired" /> orange solid = live shot</span>
+            <span><i className="legend-line predicted" /> phosphor dashed = preview</span>
+            <span><i className="legend-line fired" /> amber solid = live shot</span>
           </div>
         </div>
 
@@ -268,28 +268,30 @@ export function MenuScreen({
           <span>{guideOpen ? "−" : "+"}</span>
         </button>
         <div className={`guide ${guideOpen ? "open" : ""}`}>
-          <div className="guide-block">
-            <h3>Local trajectory frame</h3>
-            <p>
-              Your unit is the origin. <code>x</code> is horizontal distance travelled in your chosen
-              direction (0 to 132). The curve height is <code>unit.y + f(x)</code>. Choose{" "}
-              <strong>Aim left</strong> or <strong>Aim right</strong> before firing.
-            </p>
-          </div>
-          <div className="guide-block">
-            <h3>Supported syntax</h3>
-            <p>
-              <code>+ − * / ^</code>, parentheses, unary minus, <code>sin cos tan asin acos atan</code>,{" "}
-              <code>sqrt abs exp ln log floor ceil round sign</code>, constants <code>pi e tau</code>.
-              Trigonometry uses radians. Use <code>*</code> for explicit multiplication.
-            </p>
-          </div>
-          <div className="guide-block">
-            <h3>Try a curve</h3>
-            <div className="example-list">
-              {EXAMPLES.map((example) => (
-                <code key={example}>{example}</code>
-              ))}
+          <div className="guide-inner">
+            <div className="guide-block">
+              <h3>Local trajectory frame</h3>
+              <p>
+                Your unit is the origin. <code>x</code> is horizontal distance travelled in your chosen
+                direction (0 to 132). The curve height is <code>unit.y + f(x)</code>. Choose{" "}
+                <strong>Aim left</strong> or <strong>Aim right</strong> before firing.
+              </p>
+            </div>
+            <div className="guide-block">
+              <h3>Supported syntax</h3>
+              <p>
+                <code>+ − * / ^</code>, parentheses, unary minus, <code>sin cos tan asin acos atan</code>,{" "}
+                <code>sqrt abs exp ln log floor ceil round sign</code>, constants <code>pi e tau</code>.
+                Trigonometry uses radians. Use <code>*</code> for explicit multiplication.
+              </p>
+            </div>
+            <div className="guide-block">
+              <h3>Try a curve</h3>
+              <div className="example-list">
+                {EXAMPLES.map((example) => (
+                  <code key={example}>{example}</code>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -297,7 +299,7 @@ export function MenuScreen({
 
       <footer className="site-footer">
         <span>Original browser game · server-authoritative simulation</span>
-        <span>No cloud AI · No proprietary Graphwar assets</span>
+        <span>CRT-80 phosphor edition · no proprietary Graphwar assets</span>
       </footer>
     </main>
   );

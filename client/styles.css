@@ -811,6 +811,11 @@ select.text-input {
   opacity: 1;
 }
 
+.guide-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
 .guide-block {
   min-height: 0;
   padding: 10px 0;

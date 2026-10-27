@@ -29,15 +29,26 @@ export async function createGameServer(options: GameServerOptions = {}): Promise
   const dbPath = options.dbPath ?? process.env.DB_PATH ?? resolve(process.cwd(), "data", "graphwar.db");
   const store = new Store(dbPath);
   const manager = new MatchManager(store, options.managerOptions);
+  // Local development and self-hosted production both use same-origin sockets.
+  // Include the configured runtime port so changing PORT does not silently
+  // break Socket.IO's Origin check.
+  const configuredPort = Number(process.env.PORT ?? 3001);
+  const runtimeOrigins =
+    Number.isInteger(configuredPort) && configuredPort > 0
+      ? [`http://localhost:${configuredPort}`, `http://127.0.0.1:${configuredPort}`]
+      : [];
   const allowedOrigins = options.allowedOrigins ?? [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:3001",
-    "http://127.0.0.1:3001",
-    ...(process.env.CLIENT_ORIGIN ?? "")
-      .split(",")
-      .map((origin) => origin.trim())
-      .filter(Boolean),
+    ...new Set([
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+      "http://localhost:3001",
+      "http://127.0.0.1:3001",
+      ...runtimeOrigins,
+      ...(process.env.CLIENT_ORIGIN ?? "")
+        .split(",")
+        .map((origin) => origin.trim())
+        .filter(Boolean),
+    ]),
   ];
 
   const app = express();
