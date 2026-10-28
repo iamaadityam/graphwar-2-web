@@ -2,6 +2,8 @@
 
 A complete, browser-based multiplayer artillery game inspired by Graphwar. Players do not choose an angle or power: they write a mathematical function, and the server plots it as a projectile path across a Cartesian battlefield.
 
+Deployed link: https://graphwar-2-web-git-theme-retro-crt-iamaadityams-projects.vercel.app/
+
 The project is an original implementation with no Graphwar assets or code. It includes a React client, an authoritative Node.js/Socket.IO server, a safe function parser, deterministic simulation, SQLite persistence, public/private lobbies, bots, reconnection, tests, and a production build. The interface is presented as a phosphor CRT computer terminal.
 
 | Main terminal | Predicted trajectory |
